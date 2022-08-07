@@ -1,12 +1,13 @@
 package com.foxymods.pingmod.commands;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.commands.CommandSource;
+import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.Util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-
-import javax.crypto.spec.PSource;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.player.Player;
 
 public class PingCommand {
     public PingCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -15,10 +16,12 @@ public class PingCommand {
         }));
     }
 
-    private int ping(CommandSource source) throws CommandSyntaxException {
-
-        source.sendFeedback(new StringTextComponent(msg: "pong");
-        return 1;
+    private static int execute(CommandContext<CommandSourceStack> command) {
+        if (command.getSource().getEntity() instanceof Player) {
+            Player player = (Player) command.getSource().getEntity();
+            player.sendMessage(new TextComponent("pong"), Util.NIL_UUID);
+        }
+        return Command.SINGLE_SUCCESS;
     }
 
 }
