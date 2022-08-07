@@ -17,7 +17,7 @@ public class PingCommand {
 
     private int ping(CommandSource source) throws CommandSyntaxException {
 
-        source.sendMessage("pong");
+        source.sendFeedback(new StringTextComponent(msg: "pong");
         return 1;
     }
 
